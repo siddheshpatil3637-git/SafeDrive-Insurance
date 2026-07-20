@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeDrive Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <h2>SafeDrive</h2>
+            <a class="active" href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('prediction') }}">Prediction</a>
+            <a href="{{ url_for('about') }}">About Project</a>
+            <a href="{{ url_for('download_dataset') }}">Download Dataset</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </aside>
+
+        <main class="content-area">
+            <header class="page-header">
+                <div>
+                    <p class="eyebrow">Insurance Analytics</p>
+                    <h1>Driver Risk Dashboard</h1>
+                </div>
+                <a href="{{ url_for('prediction') }}" class="btn btn-primary">Predict Premium</a>
+            </header>
+
+            <section class="summary-grid">
+                <div class="summary-card">
+                    <span>Total Drivers</span>
+                    <strong>{{ summary.total_drivers }}</strong>
+                </div>
+                <div class="summary-card">
+                    <span>Average Premium</span>
+                    <strong>Rs. {{ summary.average_premium }}</strong>
+                </div>
+                <div class="summary-card danger">
+                    <span>High Risk Drivers</span>
+                    <strong>{{ summary.high_risk }}</strong>
+                </div>
+                <div class="summary-card success">
+                    <span>Low Risk Drivers</span>
+                    <strong>{{ summary.low_risk }}</strong>
+                </div>
+            </section>
+
+            <section class="insight-band">
+                <div>
+                    <p class="eyebrow">Sample Prediction</p>
+                    <h2>{{ sample_prediction.risk_level }} Risk</h2>
+                    <p>Model confidence: {{ sample_prediction.risk_confidence }}%</p>
+                </div>
+                <div>
+                    <p class="eyebrow">Driver Risk Score</p>
+                    <h2>{{ summary.average_score }}</h2>
+                    <p>Average score across all CSV records.</p>
+                </div>
+                <div>
+                    <p class="eyebrow">Estimated Premium</p>
+                    <h2>Rs. {{ sample_prediction.estimated_premium }}</h2>
+                    <p>Prediction generated from one driver sample.</p>
+                </div>
+            </section>
+
+            <section class="section-title">
+                <h2>Driving Behavior Graphs</h2>
+            </section>
+
+            <section class="chart-grid">
+                <div class="chart-card">
+                    <h3>Age vs Premium</h3>
+                    <img src="{{ url_for('static', filename='images/age_premium.png') }}" alt="Age vs Premium chart">
+                </div>
+                <div class="chart-card">
+                    <h3>Speed vs Risk</h3>
+                    <img src="{{ url_for('static', filename='images/speed_risk.png') }}" alt="Speed vs Risk chart">
+                </div>
+                <div class="chart-card">
+                    <h3>Traffic Violations Analysis</h3>
+                    <img src="{{ url_for('static', filename='images/violations.png') }}" alt="Traffic violations chart">
+                </div>
+                <div class="chart-card">
+                    <h3>Accident History Analysis</h3>
+                    <img src="{{ url_for('static', filename='images/accident_history.png') }}" alt="Accident history chart">
+                </div>
+                <div class="chart-card">
+                    <h3>Driving Score Distribution</h3>
+                    <img src="{{ url_for('static', filename='images/score_distribution.png') }}" alt="Driving score distribution chart">
+                </div>
+                <div class="chart-card">
+                    <h3>Risk Category Pie Chart</h3>
+                    <img src="{{ url_for('static', filename='images/risk_pie.png') }}" alt="Risk category pie chart">
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
